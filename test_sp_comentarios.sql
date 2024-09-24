@@ -1,0 +1,15 @@
+call sp_update_comentarios('agregar', 1, 1, null, 5, 'Excelente curso, aprendí mucho de cocina mexicana, espero saquen más cursos parecidos.', null);
+call sp_update_comentarios('agregar', 1, 1, null, 4, 'Este curso esta bien, pero es un poco complicado para ser de principiantes.', null);
+call sp_update_comentarios('agregar', 1, 1, null, 1, 'No me gusto el curso, no aprendí nada.', null);
+call sp_update_comentarios('agregar', 1, 1, null, 3, 'El curso esta bien, pero no me gusto la actitud del chef.', null);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 5, 'El curso fue increíble, aprendí muchas técnicas nuevas y todo estaba bien explicado.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 4, 'Me gustó el curso, aunque me habría gustado que se incluyeran más recetas tradicionales.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 3, 'Está bien para aprender lo básico, pero sentí que faltó profundizar en algunos temas.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 5, 'Un curso excelente, bien organizado y fácil de seguir. ¡Recomiendo mucho!', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 2, 'No me convenció. El material era difícil de seguir y los videos no estaban claros.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 1, 'No aprendí nada nuevo, esperaba algo más avanzado o con mejores explicaciones.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 4, 'Buen curso, pero algunos ingredientes no estaban disponibles en mi país, lo que dificultó seguir las recetas.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 3, 'Interesante, pero creo que le faltó más profundidad en la parte teórica.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 5, 'Me encantó el curso, muy bien explicado y fácil de seguir. Aprendí mucho sobre cocina tradicional mexicana.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 2, 'No fue lo que esperaba, el contenido no estaba bien estructurado y faltaban detalles importantes.', NULL);
+CALL sp_update_comentarios('agregar', 1, 1, NULL, 5, 'Un curso muy completo, aprendí mucho y lo recomendaría a todos los interesados en la cocina mexicana.', NULL);
