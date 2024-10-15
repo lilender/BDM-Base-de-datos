@@ -35,11 +35,15 @@ CREATE TABLE USUARIOS (
     contrasena_hash     CHAR(64) NOT NULL,
     f_nacimiento        DATE NOT NULL,
     f_registro          DATETIME DEFAULT CURRENT_TIMESTAMP,
+    f_ultimasesion      DATETIME DEFAULT CURRENT_TIMESTAMP,
     estatus             BOOLEAN DEFAULT 1, -- 1 = activo, 0 = inactivo
     f_actualizacion     DATETIME ON UPDATE CURRENT_TIMESTAMP,
     foto                BLOB,
     FOREIGN KEY (ID_genero) REFERENCES GENEROS(ID_genero)
 );
+CREATE INDEX idx_correo ON USUARIOS(correo);
+CREATE INDEX idx_nombre ON USUARIOS(nombres, apellido_paterno, apellido_materno);
+
 CREATE TABLE ESTUDIANTES (
     ID_estudiante       INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     ID_usuario          INT UNSIGNED NOT NULL,
@@ -79,6 +83,11 @@ CREATE TABLE CURSOS (
     FOREIGN KEY (ID_categoria) REFERENCES CATEGORIAS(ID_categoria),
     FOREIGN KEY (ID_maestro) REFERENCES MAESTROS(ID_maestro)
 );
+CREATE INDEX idx_calificacion ON CURSOS(promedio_calificacion);
+CREATE INDEX idx_fecha ON CURSOS(f_creacion);
+CREATE INDEX idx_categoria ON CURSOS(ID_categoria);
+CREATE INDEX idx_estudiantes ON CURSOS(n_estudiantes);
+
 CREATE TABLE APRENDIZAJES (
     ID_aprendizaje      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     ID_curso            INT UNSIGNED NOT NULL,
@@ -94,6 +103,8 @@ CREATE TABLE NIVELES (
     CONSTRAINT PK_NIVELES PRIMARY KEY (ID_curso, ID_nivel),
     FOREIGN KEY (ID_curso) REFERENCES CURSOS(ID_curso)
 );
+CREATE INDEX idx_id_nivel ON NIVELES(ID_curso, ID_nivel);
+
 CREATE TABLE CLASES (
     ID_curso            INT UNSIGNED NOT NULL,
     ID_nivel            TINYINT UNSIGNED NOT NULL,
@@ -104,6 +115,8 @@ CREATE TABLE CLASES (
     CONSTRAINT PK_CLASES PRIMARY KEY (ID_curso, ID_nivel, ID_clase),
     FOREIGN KEY (ID_curso, ID_nivel) REFERENCES NIVELES(ID_curso, ID_nivel)
 );
+CREATE INDEX idx_id_clase ON CLASES(ID_curso, ID_nivel, ID_clase);
+
 CREATE TABLE RECURSOS (
     ID_recurso          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     ID_curso            INT UNSIGNED NOT NULL,
@@ -139,6 +152,8 @@ CREATE TABLE COMENTARIOS (
     FOREIGN KEY (ID_administrador) REFERENCES ADMINISTRADORES(ID_administrador)
     -- FOREIGN KEY (ID_causa) REFERENCES CAUSAS_ELIMINACION(ID_causa)
 );
+CREATE INDEX idx_id_curso ON COMENTARIOS(ID_curso);
+
 CREATE TABLE CHATS (
     ID_chat             INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     ID_usuario1         INT UNSIGNED NOT NULL,
@@ -155,6 +170,8 @@ CREATE TABLE MENSAJES (
     FOREIGN KEY (ID_chat) REFERENCES CHATS(ID_chat),
     FOREIGN KEY (ID_usuario) REFERENCES USUARIOS(ID_usuario)
 );
+CREATE INDEX idx_chat ON MENSAJES(ID_chat);
+
 CREATE TABLE ESTUDIANTES_CURSOS (
     ID_estudiante       INT UNSIGNED NOT NULL,
     ID_curso            INT UNSIGNED NOT NULL,
@@ -168,6 +185,8 @@ CREATE TABLE ESTUDIANTES_CURSOS (
     FOREIGN KEY (ID_estudiante) REFERENCES ESTUDIANTES(ID_estudiante),
     FOREIGN KEY (ID_curso) REFERENCES CURSOS(ID_curso)
 );
+CREATE INDEX idx_estudiante_curso ON ESTUDIANTES_CURSOS(ID_estudiante);
+
 CREATE TABLE NIVELES_COMPRADOS (
     ID_estudiante       INT UNSIGNED NOT NULL,
     ID_curso            INT UNSIGNED NOT NULL,
@@ -177,6 +196,8 @@ CREATE TABLE NIVELES_COMPRADOS (
     FOREIGN KEY (ID_estudiante, ID_curso) REFERENCES ESTUDIANTES_CURSOS(ID_estudiante, ID_curso),
     FOREIGN KEY (ID_curso, ID_nivel) REFERENCES NIVELES(ID_curso, ID_nivel)
 );
+CREATE INDEX idx_estudiante_nivel ON NIVELES_COMPRADOS(ID_estudiante, ID_curso);
+
 CREATE TABLE ESTUDIANTES_CLASES (
     ID_estudiante       INT UNSIGNED NOT NULL,
     ID_curso            INT UNSIGNED NOT NULL,
@@ -187,3 +208,4 @@ CREATE TABLE ESTUDIANTES_CLASES (
     FOREIGN KEY (ID_estudiante, ID_curso) REFERENCES ESTUDIANTES_CURSOS(ID_estudiante, ID_curso),
     FOREIGN KEY (ID_curso, ID_nivel, ID_clase) REFERENCES CLASES(ID_curso, ID_nivel, ID_clase)
 );
+CREATE INDEX idx_estudiante_clase ON ESTUDIANTES_CLASES(ID_estudiante, ID_curso);
