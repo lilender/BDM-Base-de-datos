@@ -41,9 +41,9 @@ BEGIN
             apellido_paterno = apellido_paterno,
             apellido_materno = apellido_materno,
             correo = correo,
-            contrasena_hash = SHA2(contrasena_hash, 256),
-            f_nacimiento = f_nacimiento,
-            foto = foto
+            -- contrasena_hash = SHA2(contrasena_hash, 256),
+            f_nacimiento = f_nacimiento
+            -- foto = foto
         WHERE ID_usuario = ID_usu;
     END IF;
     IF opcion = 'contrasena' THEN
